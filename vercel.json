@@ -1,0 +1,7 @@
+{
+  "installCommand": "npm install --omit=dev --no-audit --no-fund",
+  "crons": [
+    { "path": "/api/cron/nudge", "schedule": "30 3 * * *" },
+    { "path": "/api/cron/weekly", "schedule": "30 3 * * 1" }
+  ]
+}

@@ -1,0 +1,81 @@
+# Environment & Secrets (NEVER COMMIT)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.cert
+# Local AES key for stored proof photos (dev only)
+.samiksha-media-key
+# Stray credential notes
+API_Key_*.txt
+*_TOKEN.txt
+
+# Cloud & Deployment CLI State
+.vercel
+.vercel/
+.supabase
+.supabase/
+.netlify/
+
+# Dependencies & Package Managers
+node_modules/
+.pnpm-store/
+
+# Build, SSR & Bundler Outputs
+dist/
+dist-ssr/
+build/
+.output/
+.vinxi/
+.tanstack/
+.nitro/
+.vite/
+.cache/
+*.tsbuildinfo
+
+# Local Databases, PGLite & Runtime State
+.data/
+.pglite/
+pglite-data/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Logs, Coverage & Test Artifacts
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+
+# Scratch Scripts, Temp Previews & Agent Folders
+tmp/
+temp/
+scratch/
+scratch*
+*.tmp
+*.bak
+*.swp
+.claude/
+.cursor/
+.agent/
+.DS_Store
+Thumbs.db
+
+# App-builder sandbox state (the app's own defaults live in app-defaults.env)
+.grok/
+
+# Demo-video renders, QA screenshots and working briefs (not app source)
+brag-output/
+brag-output-*/
+screenshots/
+attachments/

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Samiksha Saathi">
+  <rect width="32" height="32" rx="7" fill="#1B3A4B"/>
+  <path fill="#F4F3EF" d="M16 7.6c-1.9 1.2-4.15 1.75-6.4 1.75v10.2c2.2.15 4.5-.4 6.4-1.75 1.9 1.35 4.2 1.9 6.4 1.75V9.35c-2.25 0-4.5-.55-6.4-1.75z"/>
+  <path d="M16 8.3v9.2" stroke="#1B3A4B" stroke-width="1" stroke-linecap="round"/>
+  <rect x="9.4" y="23.2" width="13.2" height="2.1" rx="0.5" fill="#8E3B3B"/>
+</svg>

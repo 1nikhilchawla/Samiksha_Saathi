@@ -1,0 +1,6 @@
+# Not app source: build output, the demo-video tooling, and the platform's skill scripts.
+.vercel/
+.output/
+brag-output/
+.grok/
+brag-output-*/
