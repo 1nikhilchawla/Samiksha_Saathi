@@ -77,7 +77,7 @@ npm run test:flow                # 64 end-to-end checks of the Telegram loop on 
 npm run docs:report -- --check   # the reports' code citations still point at the right lines
 ```
 
-On 30–31 Oct 2026: typecheck clean, 133/133 TypeScript tests, 64/64 flow checks, all 162 report citations current. On Windows, 10 of the template's 197 script tests fail: 2 need symlink rights (admin or Developer Mode), and 8 expect the template's default share-card name rather than this app's.
+Typecheck clean, 133/133 TypeScript tests, 64/64 flow checks, all 162 report citations current. On Windows, 10 of the template's 197 script tests fail: 2 need symlink rights (admin or Developer Mode), and 8 expect the template's default share-card name rather than this app's.
 
 Highlights: Claude + Laya read 12/12 Hinglish field replies (rules alone: 4/12); 313 blocks, the size of Madhya Pradesh, run in under 2.5 s; a whole cycle runs offline with zero network calls. Model cost: ₹102.51 per block a month.
 
