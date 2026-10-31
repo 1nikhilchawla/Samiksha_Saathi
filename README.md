@@ -68,6 +68,10 @@ With no keys set, the app still runs end to end: an in-memory database, the code
 
 > `npm run build` also runs the database migrations against `DATABASE_URL`.
 
+## Deploy on Render
+
+[`render.yaml`](render.yaml) is a Render Blueprint: in the Render dashboard choose **New → Blueprint**, pick this repo, and fill in the keys it asks for (all optional). Render generates the session, cron and webhook secrets itself. With no `DATABASE_URL`, the deploy runs on an in-memory demo database that resets on restart.
+
 ## Tests
 
 ```bash

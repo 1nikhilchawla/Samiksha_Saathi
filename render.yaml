@@ -1,0 +1,80 @@
+# Render Blueprint for Samiksha Saathi.
+# Render dashboard → New → Blueprint → pick this repo. Render reads this file,
+# creates the web service and asks for every `sync: false` value (leave any
+# blank to keep that feature off; the app runs with none of them).
+
+services:
+  - type: web
+    name: samiksha-saathi
+    runtime: node
+    plan: free            # free instances sleep after 15 idle minutes; first request then takes ~1 min
+    region: singapore     # closest Render region to India
+    buildCommand: npm ci --omit=dev --no-audit --no-fund && npm run build
+    # npm run build also applies migrations/ to DATABASE_URL (skipped when it is empty).
+    startCommand: node --env-file-if-exists=app-defaults.env .output/server/index.mjs
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+
+      # Random secrets Render generates once.
+      - key: SAMIKSHA_SESSION_SECRET
+        generateValue: true
+      - key: CRON_SECRET
+        generateValue: true
+      - key: SAMIKSHA_RUN_SECRET
+        generateValue: true
+      - key: TELEGRAM_WEBHOOK_SECRET
+        generateValue: true
+
+      # Values you paste in. Empty DATABASE_URL = in-memory demo database that resets on restart.
+      - key: DATABASE_URL
+        sync: false
+      # Must be the same key that encrypted any photos already in DATABASE_URL.
+      - key: SAMIKSHA_MEDIA_KEY
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_BOT_USERNAME
+        sync: false
+      - key: TELEGRAM_BEO_CHAT_ID
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: XAI_API_KEY
+        sync: false
+      - key: SARVAM_API_KEY
+        sync: false
+      # Other optional keys (Bhashini, OpenAI Whisper, WhatsApp, Laya) are listed in
+      # .env.example; add them under the service's Environment tab if you use them.
+
+  # 09:00 IST reminders and the Monday digest. Render cron jobs are paid (from about
+  # $1/month each), so they are off by default. To turn them on, uncomment both, set
+  # APP_URL to the web service URL (e.g. https://samiksha-saathi.onrender.com) and
+  # re-sync the Blueprint.
+  #
+  # - type: cron
+  #   name: samiksha-daily-nudge
+  #   runtime: node
+  #   region: singapore
+  #   schedule: "30 3 * * *"
+  #   buildCommand: "true"
+  #   startCommand: curl -fsS -H "Authorization: Bearer $CRON_SECRET" "$APP_URL/api/cron/nudge"
+  #   envVars:
+  #     - key: APP_URL
+  #       sync: false
+  #     - key: CRON_SECRET
+  #       fromService: { type: web, name: samiksha-saathi, envVarKey: CRON_SECRET }
+  #
+  # - type: cron
+  #   name: samiksha-weekly-digest
+  #   runtime: node
+  #   region: singapore
+  #   schedule: "30 3 * * 1"
+  #   buildCommand: "true"
+  #   startCommand: curl -fsS -H "Authorization: Bearer $CRON_SECRET" "$APP_URL/api/cron/weekly"
+  #   envVars:
+  #     - key: APP_URL
+  #       sync: false
+  #     - key: CRON_SECRET
+  #       fromService: { type: web, name: samiksha-saathi, envVarKey: CRON_SECRET }

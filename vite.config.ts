@@ -196,7 +196,12 @@ export default defineConfig(({ command, isPreview }) => ({
     ...(command === "build" || isPreview
       ? [
           nitro({
-            preset: "vercel",
+            // Render (render.yaml) runs the built Node server; a Vercel build
+            // (VERCEL is set there) still gets the Vercel output.
+            preset: process.env.VERCEL ? "vercel" : "render-com",
+            // Ship PGlite whole (its .data / .wasm files load from beside the
+            // module), so a deploy without DATABASE_URL can run the demo database.
+            traceDeps: ["@electric-sql/pglite*"],
             // Auto-registers server/middleware/* (the PWA install page +
             // manifest + head-tag middleware). Nitro v3 defaults serverDir to
             // false, so removing this silently unwires /?install=1 on deploys.
