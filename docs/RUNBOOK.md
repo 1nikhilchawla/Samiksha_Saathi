@@ -12,7 +12,7 @@
 
 | Variable | Where | Purpose |
 |---|---|---|
-| `DATABASE_URL` | deploy (required) | Postgres (Supabase: use the pooled connection string, `?sslmode=require`). Unset in dev = in-memory PGlite. |
+| `DATABASE_URL` | deploy (required) | Postgres (Supabase: use the pooled connection string, `?sslmode=no-verify`; `pg` treats `require` as `verify-full`, which rejects Supabase's own CA). Unset in dev = in-memory PGlite. |
 | `SAMIKSHA_BLOCK_ID` | optional | Block this deployment serves. Default `MP-PILOT-BLK01`. |
 | `SAMIKSHA_RUN_SECRET` | deploy | Shared secret for `POST /api/samiksha/runCycle` (`x-samiksha-secret` header). Unset = endpoint returns 503. |
 | `CRON_SECRET` | deploy | Vercel Cron sends it as `Authorization: Bearer …` to `/api/cron/nudge`. |

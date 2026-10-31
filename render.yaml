@@ -1,7 +1,7 @@
 # Render Blueprint for Samiksha Saathi.
 # Render dashboard → New → Blueprint → pick this repo. Render reads this file,
-# creates the web service and asks for every `sync: false` value (leave any
-# blank to keep that feature off; the app runs with none of them).
+# creates the web service and asks for every `sync: false` value. DATABASE_URL
+# is required on this 512 MB plan; leave any other blank to keep that feature off.
 
 services:
   - type: web
@@ -27,7 +27,10 @@ services:
       - key: TELEGRAM_WEBHOOK_SECRET
         generateValue: true
 
-      # Values you paste in. Empty DATABASE_URL = in-memory demo database that resets on restart.
+      # Values you paste in. DATABASE_URL is required here: without it the app starts the
+      # in-memory PGlite demo database, which needs ~900 MB and is killed on free/starter
+      # (512 MB). Supabase: pooler URL (port 6543) ending in ?sslmode=no-verify, because pg
+      # treats sslmode=require as verify-full and rejects Supabase's own root CA.
       - key: DATABASE_URL
         sync: false
       # Must be the same key that encrypted any photos already in DATABASE_URL.
