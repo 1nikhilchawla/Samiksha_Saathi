@@ -10,6 +10,7 @@ import { HingeBar, HingeButton, RoleBar } from "@/components/samiksha/command-ba
 import { DistrictCommandPanel } from "@/components/samiksha/district-command";
 import { RoleMissionStrip } from "@/components/samiksha/role-mission-strip";
 import { ArchitecturePanel, stageNote } from "@/components/samiksha/architecture-panel";
+import { EvaluatorGuide } from "@/components/samiksha/evaluator-guide";
 import { useCycle, type TabId } from "@/lib/samiksha/store";
 import { useActions, useView, sendOfflineAction } from "@/lib/samiksha/view";
 import {
@@ -284,6 +285,7 @@ export function Workspace() {
 
       {/* The district command view belongs to the DEO and the SPD. The CRCC's cluster desk lives on the Follow tab. */}
       <div className="mx-auto max-w-7xl space-y-6 px-4 pt-6 lg:px-8">
+        <EvaluatorGuide />
         <ArchitecturePanel />
         <DistrictCommandPanel />
       </div>

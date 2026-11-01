@@ -69,14 +69,14 @@
 - **Code picks the list, Claude orders it** (src/lib/samiksha/narrate.ts:104).
 - **Cache before cap (Defect J):** the stored order for the same list is served first and is free (src/lib/samiksha/narrate.ts:157); only a new order meets the monthly cap (src/lib/samiksha/narrate.ts:174), which counts asks, not retries (src/lib/samiksha/narrate.ts:42). The brief shows the asks left (src/components/samiksha/brief-tab.tsx:260).
 - **Five checks (Defect I, plus tone):** number fidelity, action library validity, citation completeness, target preservation, tone and safety; confidence is passed / 5 (src/lib/samiksha/core/layaEngine.ts:215). An order is applied only at 5 of 5, so a stored order reads 100%; a refused one reports its score.
-- **Task cards show their own confidence (Defect H):** owner and due-date confidence from the governance fill, not the brief's score (src/components/samiksha/approve-tab.tsx:253).
+- **Task cards show their own confidence (Defect H):** owner and due-date confidence from the governance fill, not the brief's score (src/components/samiksha/approve-tab.tsx:307).
 - **Tests:** scripts/verify-bot-flow.mjs:319, scripts/verify-bot-flow.mjs:330, src/lib/samiksha/samiksha.test.ts:1477.
 
 ## 9. Delivery: fact-check, queue, Telegram, WhatsApp
 
 - **Fact-check before the queue:** numbers, school names, dates, the task's state, and now the action and its evidence (Defect F, src/lib/samiksha/core/telegramFactCheck.ts:118). A minus sign is part of the claim: "-34%" does not pass on "34%" (Defect T, src/lib/samiksha/core/guards.ts:15).
 - **Queue:** at most 25 a second, one a second per chat (src/lib/samiksha/core/messageQueue.ts:16).
-- **WhatsApp (Defect L):** Meta's handshake and signed replies at src/routes/api/whatsapp/webhook.ts:9; the signature check (src/server/samiksha/whatsapp.server.ts:30); replies recorded with the Telegram rules (src/server/samiksha/whatsapp.server.ts:40); a number moves a task only after the BEO's card links it (migrations/0012_whatsapp.sql:8; screen: src/components/samiksha/follow-tab.tsx:176).
+- **WhatsApp (Defect L):** Meta's handshake and signed replies at src/routes/api/whatsapp/webhook.ts:9; the signature check (src/server/samiksha/whatsapp.server.ts:30); replies recorded with the Telegram rules (src/server/samiksha/whatsapp.server.ts:40); a number moves a task only after the BEO's card links it (migrations/0012_whatsapp.sql:8; screen: src/components/samiksha/follow-tab.tsx:237).
 
 **Caveat:** WhatsApp sends nothing until Meta approves the templates and the keys are set; migration 0012 reaches the live database on the next `npm run build`.
 
@@ -103,7 +103,7 @@
 | E | Upload review date threaded | src/lib/samiksha/core/pipeline.ts:434 |
 | F | Fact-check checks the action and citations | src/lib/samiksha/core/telegramFactCheck.ts:118 |
 | G | 92 / 8 shown beside the baseline | src/components/samiksha/insight-panels.tsx:74 |
-| H | Task cards show their own confidence | src/components/samiksha/approve-tab.tsx:253 |
+| H | Task cards show their own confidence | src/components/samiksha/approve-tab.tsx:307 |
 | I | Five named ranking checks | src/lib/samiksha/core/layaEngine.ts:215 |
 | J | Cache before the cap; asks counted once | src/lib/samiksha/narrate.ts:157 |
 | K | Held reward sends a coaching note | server/bot/telegram.ts:263 |
@@ -117,7 +117,7 @@
 | T | Sign-aware number check | src/lib/samiksha/core/guards.ts:15 |
 | U | This report, generated from the code | scripts/render-architecture-report.mjs:31 |
 | V | grok-4.5 priced | src/lib/samiksha/core/config.ts:16 |
-| W | One threshold editor (Stage 1) | src/components/samiksha/upload-tab.tsx:423 |
+| W | One threshold editor (Stage 1) | src/components/samiksha/upload-tab.tsx:431 |
 | X | Roles in ladder order; header comment corrected | src/lib/samiksha/core/rbac.ts:22 |
 | Y | Budget figure tied to the projection; tests read `STATE_CODES` | src/lib/samiksha/core/config.ts:78 |
 

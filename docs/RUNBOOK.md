@@ -6,7 +6,7 @@
 - **Database:** a Supabase project (free plan; its ref, region and host stay in `DATABASE_URL`, not in the repo). The app connects as its own app role through the transaction pooler (`<pooler-host>:6543`). That role owns the app tables, so it is not subject to RLS; Supabase `anon` has no access, `authenticated` reads only its block.
 - **Bot:** @Samiksha_saathi_bot. BEO chat is set in `TELEGRAM_BEO_CHAT_ID`. An unknown chat's `/start` is logged as `[bot] /start from chat <id>`.
 - **Hardening still open:** `DATABASE_URL` uses `sslmode=no-verify` (encrypted, server certificate not checked) because Supabase signs with its own root CA. To verify, download the CA from Dashboard → Database → SSL and pin it.
-- **Deploy to Vercel:** add every non-empty key from `.env.local` to the Vercel project env, deploy, then run `npm run bot:webhook -- https://<host>`. While the webhook is set, local long polling stays off for this token.
+- **Deploy to Render:** create the service from `render.yaml` (Render → New → Blueprint), add every non-empty key from `.env.local` in its Environment tab (`DATABASE_URL` is required there), deploy, then run `npm run bot:webhook -- https://<host>`. While the webhook is set, local long polling stays off for this token. A Vercel build still works: `vite.config.ts` switches to the Vercel output when `VERCEL` is set.
 
 ## Environment
 
@@ -15,7 +15,7 @@
 | `DATABASE_URL` | deploy (required) | Postgres (Supabase: use the pooled connection string, `?sslmode=no-verify`; `pg` treats `require` as `verify-full`, which rejects Supabase's own CA). Unset in dev = in-memory PGlite. |
 | `SAMIKSHA_BLOCK_ID` | optional | Block this deployment serves. Default `MP-PILOT-BLK01`. |
 | `SAMIKSHA_RUN_SECRET` | deploy | Shared secret for `POST /api/samiksha/runCycle` (`x-samiksha-secret` header). Unset = endpoint returns 503. |
-| `CRON_SECRET` | deploy | Vercel Cron sends it as `Authorization: Bearer …` to `/api/cron/nudge`. |
+| `CRON_SECRET` | deploy | The cron job (Render cron, commented out in `render.yaml`) sends it as `Authorization: Bearer …` to `/api/cron/nudge` and `/api/cron/weekly`. |
 | `TELEGRAM_BOT_TOKEN` | deploy + dev | From @BotFather. Unset = no bot; cards are recorded in the DB only. |
 | `TELEGRAM_BOT_USERNAME` | optional | Shown in the Follow tab. Default `SamikshaSaathiBot`. |
 | `TELEGRAM_BEO_CHAT_ID` | deploy + dev | The only chat allowed to run BEO commands. |
@@ -35,7 +35,7 @@
 
 1. Create the bot with @BotFather; set `TELEGRAM_BOT_TOKEN`, `TELEGRAM_BEO_CHAT_ID`.
 2. Dev / a pilot box: `npm run dev` long-polls automatically and runs the 09:00 IST nudge.
-3. Vercel: set `TELEGRAM_WEBHOOK_SECRET`, deploy, then `npm run bot:webhook -- https://<host>`.
+3. Render: set `TELEGRAM_WEBHOOK_SECRET` to the same value as in `.env.local`, deploy, then `npm run bot:webhook -- https://<host>`.
 4. BEO in Telegram: `/seed`, then a plain-text review note → drafts; `/approve 14`; `/link crcc-4 <chat id>`; `/send`.
 5. Field staff send `/start` to learn their chat id; replies like "हो गया सर" update the task.
 

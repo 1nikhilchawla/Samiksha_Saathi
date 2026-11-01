@@ -123,6 +123,16 @@ export function RoleBar() {
               ? "Opening your role view…"
               : "आपका भूमिका दृश्य खुल रहा है…"}
         </Chip>
+        {ROLE_LEVEL[role] < ROLE_LEVEL.BEO ? (
+          <p className="flex w-full flex-wrap items-center gap-2 text-sm text-flag" role="status">
+            {en
+              ? `${role} view: you can reply on tasks and add photo proof. Uploading block files, turning a note into tasks and approving or sending them need level 3 (BEO).`
+              : `${role} दृश्य: आप कार्य पर उत्तर व फोटो प्रमाण दे सकते हैं। विकासखंड फाइलें अपलोड करना, नोट से कार्य बनाना और उन्हें अनुमोदित या भेजना स्तर 3 (BEO) करता है।`}
+            <Btn kind="soft" onClick={() => setRole("BEO")}>
+              {en ? "Switch to BEO view" : "BEO दृश्य पर जाएँ"}
+            </Btn>
+          </p>
+        ) : null}
       </div>
     </div>
   );

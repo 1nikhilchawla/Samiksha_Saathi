@@ -150,9 +150,17 @@ function RunLedger({ cycle, prep, isSeed, en }: { cycle: CycleView; prep: number
 function UploadControls({ en }: { en: boolean }) {
   const { loadSeed, ingestMany, triggerPii, triggerUnknownHeader, triggerOversized } = useActions();
   const upload = useCan()("upload_block_files");
+  const setRole = useCycle((s) => s.setRole);
   return (
     <>
-      {upload.allowed ? null : <p className="text-sm text-flag">{en ? upload.reasonEn : upload.reasonHi}</p>}
+      {upload.allowed ? null : (
+        <p className="flex flex-wrap items-center gap-2 text-sm text-flag">
+          {en ? upload.reasonEn : upload.reasonHi}
+          <Btn kind="soft" onClick={() => setRole("BEO")}>
+            {en ? "Switch to BEO view to upload" : "अपलोड हेतु BEO दृश्य पर जाएँ"}
+          </Btn>
+        </p>
+      )}
       <div className="flex flex-wrap gap-3.5">
         <Btn kind="primary" onClick={loadSeed} disabled={!upload.allowed}>
           {en ? "Reload Block Files (R1–R3)" : "विकासखंड फाइलें फिर लोड करें"}
