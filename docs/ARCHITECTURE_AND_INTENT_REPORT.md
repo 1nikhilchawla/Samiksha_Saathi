@@ -67,7 +67,7 @@
 ## 8. The Claude reorder of the brief
 
 - **Code picks the list, Claude orders it** (src/lib/samiksha/narrate.ts:104).
-- **Cache before cap (Defect J):** the stored order for the same list is served first and is free (src/lib/samiksha/narrate.ts:157); only a new order meets the monthly cap (src/lib/samiksha/narrate.ts:174), which counts asks, not retries (src/lib/samiksha/narrate.ts:42). The brief shows the asks left (src/components/samiksha/brief-tab.tsx:260).
+- **Cache before cap (Defect J):** the stored order for the same list is served first and is free (src/lib/samiksha/narrate.ts:157); only a new order meets the monthly cap (src/lib/samiksha/narrate.ts:174), which counts asks, not retries (src/lib/samiksha/narrate.ts:42). The brief shows the asks left (src/components/samiksha/brief-tab.tsx:261).
 - **Five checks (Defect I, plus tone):** number fidelity, action library validity, citation completeness, target preservation, tone and safety; confidence is passed / 5 (src/lib/samiksha/core/layaEngine.ts:215). An order is applied only at 5 of 5, so a stored order reads 100%; a refused one reports its score.
 - **Task cards show their own confidence (Defect H):** owner and due-date confidence from the governance fill, not the brief's score (src/components/samiksha/approve-tab.tsx:307).
 - **Tests:** scripts/verify-bot-flow.mjs:319, scripts/verify-bot-flow.mjs:330, src/lib/samiksha/samiksha.test.ts:1477.

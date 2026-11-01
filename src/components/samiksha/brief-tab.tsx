@@ -41,6 +41,9 @@ export function BriefTab() {
   const setTopGapsLimit = useCycle((s) => s.setTopGapsLimit);
   const clearBanner = useCycle((s) => s.clearBanner);
   const gateMessage = useCycle((s) => s.gateMessage);
+  // Every hook runs before the early return below, so the count never changes between renders.
+  const confidence = useCycle((s) => s.layaConfidence);
+  const stateCode = useCycle((s) => s.stateCode);
 
   const pool = { gaps: cycle?.gaps ?? [], allRankedGaps };
   const options = availableTopLimits(pool);
@@ -66,14 +69,12 @@ export function BriefTab() {
     : briefMode === "fallback"
       ? (en ? "Standard Rule Ranking Active · 100% Deterministic Gap Numbers" : "मानक नियम क्रम सक्रिय · सभी अंतर-आँकड़े 100% कोड से")
       : (en ? "Verified Code Ranking" : "सत्यापित कोड क्रम");
-  const confidence = useCycle((s) => s.layaConfidence);
   const confidenceChip =
     confidence === null
       ? null
       : en
         ? `Second check ${confidence.toFixed(2)} · ${confidence >= 0.9 ? "high" : confidence >= 0.6 ? "medium" : "low"} confidence`
         : `द्वितीय जाँच ${confidence.toFixed(2)} · ${confidence >= 0.9 ? "उच्च" : confidence >= 0.6 ? "मध्यम" : "निम्न"} विश्वसनीयता`;
-  const stateCode = useCycle((s) => s.stateCode);
   const detected = cycle?.detectedStateCode ?? stateCode;
   const stateChip = en
     ? `State profile: ${detected} (${detected === "MP" ? "Madhya Pradesh" : detected === "UP" ? "Uttar Pradesh" : detected === "PB" ? "Punjab" : "Haryana"})`

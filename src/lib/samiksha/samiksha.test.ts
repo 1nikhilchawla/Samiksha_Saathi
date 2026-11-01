@@ -80,7 +80,7 @@ describe("messy exports", () => {
       (c) => `${c}.0`,
       (c) => Number(c).toExponential(10),
       (c) => `\t${c}\t`,
-      (c) => `${c.slice(0, 5)} ${c.slice(5)}`,
+      (c) => `${c.slice(0, 5)}\u00A0${c.slice(5)}`,
       (c) => e.asciiToDev(`${c.slice(0, 4)}-${c.slice(4)}`),
       (c) => `${c.slice(0, 4)} - ${c.slice(4)}`,
     ];

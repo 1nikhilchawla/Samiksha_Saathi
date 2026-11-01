@@ -202,6 +202,20 @@ export default defineConfig(({ command, isPreview }) => ({
             // Ship PGlite whole (its .data / .wasm files load from beside the
             // module), so a deploy without DATABASE_URL can run the demo database.
             traceDeps: ["@electric-sql/pglite*"],
+            // Security headers on every response of the deployed app. The CSP only
+            // limits who may frame the page, so no script (grok.com's included) is blocked.
+            routeRules: {
+              "/**": {
+                headers: {
+                  "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+                  "X-Frame-Options": "SAMEORIGIN",
+                  "Content-Security-Policy": "frame-ancestors 'self' https://grok.com https://*.grok.com",
+                  "X-Content-Type-Options": "nosniff",
+                  "Referrer-Policy": "strict-origin-when-cross-origin",
+                  "Permissions-Policy": "camera=(self), microphone=(self), geolocation=()",
+                },
+              },
+            },
             // Auto-registers server/middleware/* (the PWA install page +
             // manifest + head-tag middleware). Nitro v3 defaults serverDir to
             // false, so removing this silently unwires /?install=1 on deploys.

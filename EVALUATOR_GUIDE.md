@@ -22,6 +22,8 @@ The **Officer view** menu at the top sets who you are. Each level holds everythi
 
 **Start as BEO**, the default. As HM or CRCC you see a **Switch to BEO view** button wherever an action needs a BEO.
 
+**Who can approve:** any officer at level 3 or above (BEO, DEO, SPD). The app checks this, and so does the database: the trigger `samiksha_task_role_guard` in `migrations/0009_hardening_and_district.sql` refuses an approval below level 3. (`0007` had a BEO-only version; `0008` and `0009` replaced it.)
+
 ## 2. Walk the five steps (6 min)
 
 | Step | Do this | You should see |
@@ -36,7 +38,7 @@ The **Officer view** menu at the top sets who you are. Each level holds everythi
 
 | Guardrail | How to trigger it | Expected result |
 |---|---|---|
-| Student data | Step 1: **Test Student PII Blocker**, or upload [`student_level_sample.csv`](public/samples/guardrails/student_level_sample.csv) | Refused; names and Aadhaar never enter the block file |
+| Student data | Step 1: **Test Student PII Blocker**, or upload [`student_level_sample.csv`](public/samples/guardrails/student_level_sample.csv) | Refused; names and Aadhaar never enter the block file. The file is synthetic: a made-up name and a number starting with 1, which no real Aadhaar number does |
 | Unknown columns | Step 1: **Test Unknown Column Mapper**, or upload [`messy_headers.csv`](public/samples/guardrails/messy_headers.csv) | The app asks you to map the columns instead of guessing |
 | Oversized file | Step 1: **Test oversized file (8.4 MB) and /why** | Refused, with a /why that explains the limit |
 | Punitive wording | Step 3: **Punitive note (tone check)** | The tone check flags it; no task can be approved or sent with that wording |
@@ -51,7 +53,7 @@ The **Officer view** menu at the top sets who you are. Each level holds everythi
 All in [`public/samples/`](public/samples), and downloadable from the live app too (for example `https://samiksha-saathi.onrender.com/samples/photos/classroom-group-activity.png`):
 
 - [`block-exports/`](public/samples/block-exports): the block's 7 messy exports. In step 1, **Upload CSV / XLSX** and select all 7 to get the same numbers as the built-in files.
-- [`guardrails/`](public/samples/guardrails): a student-level file and a file with unknown column names.
+- [`guardrails/`](public/samples/guardrails): a student-level file and a file with unknown column names. The student row is **synthetic** and exists only to be refused: "Asha Kumari" is a made-up name, and `123412341234` cannot be a real Aadhaar number, since those never start with 0 or 1.
 - [`photos/`](public/samples/photos): drawn classroom scenes, no real children. One passes, two are refused.
 
 ## Run it yourself
