@@ -1,6 +1,6 @@
 # Samiksha Saathi — Deck Rubric Evidence and Evals
 
-**State of the code:** 29 Oct 2026. **Tests:** `npm run typecheck` exits 0 · `npm test` 132/132 TypeScript tests (73 in the engine suite; the template's own `scripts/**/*.test.mjs` suite has 10 Windows-only failures that predate this work) · `npm run test:flow` 64/64 on an in-memory database.
+**State of the code:** 1 Nov 2026. **Tests:** `npm run typecheck` exits 0 · `npm test` 133/133 TypeScript tests (74 in the engine suite; the template's own `scripts/**/*.test.mjs` suite runs separately with `npm run test:template` and predates this work) · `npm run test:flow` 64/64 on an in-memory database.
 **Citations are generated** from this file's template by `npm run docs:report`; a citation the code no longer contains stops the render, and `npm run docs:report -- --check` fails when this file is stale.
 **Data:** a synthetic pilot block (fictional Kesli, 110 schools). There has been no field pilot with real officers yet.
 
@@ -91,7 +91,7 @@ Measured on the live database this week: a Top 5 reorder took 12 s for about ₹
 
 | Suite | Result | What it proves |
 |---|---|---|
-| `npm test` | 132 / 132 | Engine, guards, evals above, auth and app-data helpers |
+| `npm test` | 133 / 133 | Engine, guards, evals above, auth and app-data helpers |
 | `npm run test:flow` | 64 / 64 | The Telegram loop end to end on a fresh database, the roles, the vault, the cache and cap, WhatsApp, injection |
 | 33-block multi-format test | same gaps in MP, UP, PB; Haryana loses 1 gap to its level banding | src/lib/samiksha/samiksha.test.ts:371 |
 | 313-block scale run of the seeded block | under 2.5 s, median under 10 ms a block | src/lib/samiksha/samiksha.test.ts:55 |

@@ -123,6 +123,12 @@ Typecheck clean, 133/133 tests, 64/64 flow checks, all 162 report citations curr
 
 Highlights: Claude + Laya read 12/12 Hinglish field replies (rules alone: 4/12); 313 blocks, the size of Madhya Pradesh, run in under 2.5 s; a whole cycle runs offline with zero network calls. Model cost: ₹102.51 per block a month.
 
+## Security
+
+- **No secrets in the repo.** Keys live in `.env.local` (gitignored) or the host's environment; [`.env.example`](.env.example) lists every name with empty values.
+- **Response headers** on the deployed app: HSTS, `X-Frame-Options: SAMEORIGIN` and a `frame-ancestors` CSP, `nosniff`, a referrer policy and a permissions policy (set in [`vite.config.ts`](vite.config.ts)).
+- **Dependencies.** `npm audit --omit=dev` reports 3 advisories, all in `better-auth`, the app-builder template's sign-in library. None is reachable here: sign-in is off, no `/api/auth` route is mounted, and the advisories need plugins this app does not load (magic link, OAuth proxy, device login). Its fix, 1.7, moves the OAuth callback path the template's sign-in broker accepts, so it stays on the latest 1.6 patch (1.6.34). The other advisories `npm audit` lists are in eslint, a development tool that is never deployed.
+
 ## Repository layout
 
 | Path | Contents |

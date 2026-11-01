@@ -1,7 +1,7 @@
 # Samiksha Saathi — Architecture, Intent and Trade-Offs
 
 **State of the code:** 29 Oct 2026, after the jury-audit fixes (Defects A–Y, Moves 1–4).
-**Tests:** `npm test` → 132/132 TypeScript tests (73 in the engine suite); the template's `scripts/**/*.test.mjs` suite has 10 Windows-only failures (symlink permission and share-card tests) that predate this work. `npm run test:flow` → 64/64 checks on an in-memory database. Tone, prompt-injection and offline evidence is in `docs/DECK_RUBRIC_EVIDENCE_AND_EVALS.md`.
+**Tests:** `npm test` → 133/133 TypeScript tests (74 in the engine suite). The template's own `scripts/**/*.test.mjs` suite runs separately (`npm run test:template`); some of it fails outside the app-builder sandbox (symlink permission and share-card tests) and predates this work. `npm run test:flow` → 64/64 checks on an in-memory database. Tone, prompt-injection and offline evidence is in `docs/DECK_RUBRIC_EVIDENCE_AND_EVALS.md`.
 **Citations** are generated: this file is rendered from `docs/ARCHITECTURE_AND_INTENT_REPORT.template.md` by `npm run docs:report`, which looks each one up in the current code and refuses to render a citation it cannot find. `npm run docs:report -- --check` fails when the report is out of date.
 
 **Benchmark, in the words the app also uses:** 4 state VSK format adapters (MP, UP, PB, HR), checked on a 33-block multi-format test and on a 313-block scale run of the seeded block (median under 10 ms a block), all on synthetic data.
